@@ -1,0 +1,12 @@
+languare: node_js
+branches:
+  only:
+  - master
+node_js:
+- 12
+cache: yarn
+install:
+- bundle install
+script:
+- yarn install --ignore-engines
+- yarn build
