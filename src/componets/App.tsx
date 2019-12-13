@@ -1,31 +1,30 @@
 import React from 'react';
-import { Store } from 'redux';
 import { inputTask, addTask } from '../actions/Tasks'
-import { Task } from '../reducers/Tasks'
+import { Task, State } from '../reducers/Tasks'
 
-const App: React.FC<Store> = (store: Store) => {
-    const  {task, tasks} = store.getState()
+type Props = State
+
+export const App: React.FC<Props> = (props: Props)=> {
     return (
         <div>
             <input
                 type="text"
                 onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                    store.dispatch(inputTask(event.currentTarget.value))
-                    console.log(event.currentTarget.value)
-                    console.log(JSON.stringify(store.getState()))
+                    console.log(`onChange : ${event.currentTarget.value}`)
+                    inputTask(event.currentTarget.value)
                 }}
             />
             <input
                 type="button"
                 value="add"
                 onClick={() => {
-                    store.dispatch(addTask(task))
-                    console.log(JSON.stringify(task))
+                    console.log(`onClick: ${props.task}`)
+                    addTask(props.task)
                 }}
             />
             <ul>
                 {
-                    tasks.map((task: Task, index: number) => {
+                    props.tasks.map((task: Task, index: number) => {
                         return (
                             <li key={index}>{task}</li>
                         );
@@ -35,5 +34,3 @@ const App: React.FC<Store> = (store: Store) => {
         </div>
     );
 }
-
-export default App;
