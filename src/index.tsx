@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './containers/App';
-import { createStore } from 'redux';
 import * as serviceWorker from './serviceWorker';
-import { tasksReducer } from './reducers/Tasks'
 import { Provider } from 'react-redux';
+import store from './Store'
 
 ReactDOM.render(
-    <Provider store={createStore(tasksReducer)}>
+    <Provider store={store}>
         <App />
     </Provider>,
     document.getElementById('root')

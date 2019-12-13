@@ -1,25 +1,26 @@
 import React from 'react';
-import { inputTask, addTask } from '../actions/Tasks'
+import { TaskActions } from '../actions/Tasks'
 import { Task, State } from '../reducers/Tasks'
 
-type Props = State
+type Props = State & TaskActions
 
 export const App: React.FC<Props> = (props: Props)=> {
     return (
         <div>
             <input
+                className="input-box"
                 type="text"
                 onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                    console.log(`onChange : ${event.currentTarget.value}`)
-                    inputTask(event.currentTarget.value)
+                    props.inputTask(event.currentTarget.value)
                 }}
+                value={props.task}
             />
             <input
                 type="button"
                 value="add"
                 onClick={() => {
-                    console.log(`onClick: ${props.task}`)
-                    addTask(props.task)
+                    props.addTask(props.task)
+                    props.clearTask()
                 }}
             />
             <ul>
