@@ -1,6 +1,8 @@
+import { Reducer } from 'redux';
+import { TaskAction } from '../actions/Tasks';
 
 export type Task = string
-export type State = {
+export interface State {
     task: string,
     tasks: Array<Task>
 }
@@ -10,7 +12,7 @@ const initialState: State = {
     tasks: []
 }
 
-export const tasksReducer = (state: State = initialState, action: any) => {
+export const taskReducer: Reducer<State, TaskAction> = (state: State = initialState, action: TaskAction) => {
     switch (action.type) {
         case 'ADD_TASK':
             return {
@@ -21,6 +23,11 @@ export const tasksReducer = (state: State = initialState, action: any) => {
             return {
                 ...state,
                 task: action.payload.task
+            }
+        case 'CLEAR_TASK':
+            return {
+                ...state,
+                task: ""
             }
         default:
             return state;
